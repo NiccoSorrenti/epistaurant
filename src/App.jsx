@@ -22,7 +22,12 @@ import Home from './components/Home';
 function App() {
   return (
     <>
-      <RestaurantNavbar />
+      {/* qui vorrei illuminare Home */}
+      <RestaurantNavbar illuminaLink="Home" />
+      {/* qui vorrei illuminare Prenota */}
+      {/* <RestaurantNavbar illuminaLink="Prenota" /> */}
+      {/* qui vorrei illuminare Admin */}
+      {/* <RestaurantNavbar illuminaLink="Admin" /> */}
       <Home />
     </>
   );
