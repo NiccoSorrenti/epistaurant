@@ -1,6 +1,7 @@
 import { Container, Row, Col, Carousel, ListGroup } from 'react-bootstrap';
 import pastasciutte from '../data/menu.json';
-import { Component } from 'react';
+import { useState } from 'react';
+import PastaReviews from './PastaReviews';
 // pastasciutte è un array di OGGETTI
 // sono andato a prenderlo dal file menu.json
 
@@ -12,17 +13,24 @@ import { Component } from 'react';
 // la slide ATTUALMENTE visualizzata. Prima cosa: per avere un state, il
 // componente React dev'essere stato creato come CLASSE
 
-class Home extends Component {
-  state = {
-    // non può chiamarsi giangiorgio
-    // qui dentro ci metterete TUTTE le proprietà di cui vorrete
-    // mantenere una "memoria" nel ciclo vita del componente
-    // mi memorizzo nello stato quale sia la pasta attualmente visualizzata
-    activePasta: pastasciutte[0], // carbonara
-  };
+const Home = function () {
+  // state = {
+  //   // non può chiamarsi giangiorgio
+  //   // qui dentro ci metterete TUTTE le proprietà di cui vorrete
+  //   // mantenere una "memoria" nel ciclo vita del componente
+  //   // mi memorizzo nello stato quale sia la pasta attualmente visualizzata
+  //   activePasta: pastasciutte[0], // carbonara
+  // }
 
-  render() {
-    return (
+  const [activePasta, setActivePasta] = useState(pastasciutte[0]);
+
+  return (
+    <>
+      {/* per personalizzare i tag contenuti nella sezione <head> di
+    index.html in modo dinamico nelle nostre rotte è sufficiente
+    inserire -a caso- dentro il JSX del componente montato su tale
+    rotta un override dei tag <title>, <link>, <meta> etc. */}
+      <title>Home</title>
       <Container className="mt-3">
         <Row className="justify-content-center">
           <Col xs={12}>
@@ -37,7 +45,7 @@ class Home extends Component {
         tra { } se è qualsiasi valore NON stringa */}
             <Carousel
               onSlid={(i) => {
-                console.log('SLIDE CAMBIATA', i);
+                // console.log('SLIDE CAMBIATA', i)
                 // con questo indice io voglio andare a cambiare quale elemento
                 // dell'array pastasciutte verrà salvato dentro lo stato
 
@@ -45,9 +53,10 @@ class Home extends Component {
                 // this.state.activePasta <-- questa è la proprietà activePasta
                 // PERÒ: l'oggetto STATE in un componente è READ-ONLY
                 // lo stato di un componente va RICREATO OGNI VOLTA
-                this.setState({
-                  activePasta: pastasciutte[i],
-                });
+                // this.setState({
+                //   activePasta: pastasciutte[i],
+                // })
+                setActivePasta(pastasciutte[i]);
               }}
             >
               {pastasciutte
@@ -77,20 +86,12 @@ class Home extends Component {
 
         <Row className="justify-content-center my-3">
           <Col xs={12} md={8} lg={6}>
-            <ListGroup className="text-center">
-              {this.state.activePasta.comments.map((c) => {
-                return (
-                  <ListGroup.Item key={c.id}>
-                    {c.author} | {c.comment}
-                  </ListGroup.Item>
-                );
-              })}
-            </ListGroup>
+            <PastaReviews pasta={activePasta} />
           </Col>
         </Row>
       </Container>
-    );
-  }
-}
+    </>
+  );
+};
 
 export default Home;

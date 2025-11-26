@@ -80,6 +80,7 @@ class BookATable extends Component {
   // situazione
 
   render() {
+    // console.log('RENDER DI BOOKATABLE')
     return (
       <Container
       // esempio classe condizionale
@@ -139,7 +140,9 @@ class BookATable extends Component {
                 <Form.Label>In quanti siete</Form.Label>
                 <Form.Select
                   aria-label="number of people"
+                  // 1
                   value={this.state.booking.numberOfPeople}
+                  // 2
                   onChange={(e) => {
                     this.setState({
                       booking: {
